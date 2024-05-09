@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="form-container">
+    <div>
+      <input
+        type="text"
+        placeholder="Enter Note Title"
+        [formControl]="title"
+        [ngClass]="{ 'invalid': title.invalid && title.touched }"
+      />
+      <p class="error" *ngIf="title.invalid && title.touched">Title must be at least 5 characters long.</p>
+      <input
+        type="text"
+        placeholder="Enter Note Content"
+        [formControl]="content"
+        [ngClass]="{ 'invalid': content.invalid && content.touched }"
+      />
+      <p class="error" *ngIf="content.invalid && content.touched">Content must be at least 7 characters long.</p>
+      <button
+        type="button"
+        (click)="saveNote()"
+        [disabled]="title.invalid || content.invalid"
+      >
+        Save Note
+      </button>
+    </div>
+  </div>
+
+  <div class="notes-container">
+    <div
+      class="note"
+      *ngFor="let savedNote of notes; let i = index"
+      [class.selected]="i === selectedNoteIndex"
+    >
+      <h2 (click)="selectNote(i)">{{ savedNote.title }}</h2>
+      <p>{{ savedNote.content }}</p>
+      <div class="actions">
+        <button
+        *ngIf="i === selectedNoteIndex"
+        (click)="editNote(selectedNoteIndex)"
+      >
+        Edit
+      </button>
+        <button *ngIf="i === selectedNoteIndex" (click)="deleteNote()">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
